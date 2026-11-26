@@ -26,6 +26,8 @@ button,input,select{font:inherit}button{cursor:pointer}.shell{max-width:1020px;m
 .check-menu-foot button{border:0;background:none;color:var(--accent);font-size:11px;padding:4px}
 .filters select[multiple]{min-height:112px;padding:8px}.filter-help{font-size:10px;color:var(--muted);margin:-8px 0 12px}.day-list{display:grid;gap:10px}.day{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:15px;display:grid;grid-template-columns:76px 1fr;gap:12px;box-shadow:var(--shadow)}.day-date{font-size:10px;letter-spacing:.08em;color:var(--muted);text-transform:uppercase}.day h3{font:400 20px Georgia,serif;margin:0 0 4px}.day p{font-size:12px;color:var(--muted);margin:0}.day .detail{font-size:12px;margin-top:8px;color:#55554d}.day button{margin-top:10px;border:0;background:transparent;padding:0;color:var(--accent);font-size:12px;font-weight:650}.place-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.place{background:var(--surface);border:1px solid var(--line);border-radius:13px;padding:14px;min-width:0}.place-top{display:flex;justify-content:space-between;gap:8px;align-items:start}.place h3{font:400 19px Georgia,serif;margin:0 0 5px}.place p{font-size:12px;color:var(--muted);margin:4px 0}.date-tag{font-size:10px;color:var(--accent);margin:7px 0 0}.tag{font-size:9px;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--line);border-radius:99px;padding:4px 7px;color:var(--muted);white-space:nowrap}.origin{font-size:10px;color:var(--accent);margin-top:8px}.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;border-top:1px solid var(--line);padding-top:10px}.actions a,.actions button{color:var(--ink);font-size:11px;text-decoration:none;background:none;border:0;padding:0}.actions a:first-child{font-weight:650}.map-wrap{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden}.map-controls{display:flex;gap:8px;flex-wrap:wrap;padding:12px}.map-controls select{flex:1;min-width:150px;border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:10px;font-size:12px}#map{height:440px;width:100%;background:#e7e5dc}.map-note{padding:10px 13px;font-size:11px;color:var(--muted);border-top:1px solid var(--line)}.routebox{background:var(--soft);border-radius:12px;padding:14px;margin-top:12px}.routebox h3{font:400 20px Georgia,serif;margin:0 0 7px}.routebox p{font-size:12px;color:var(--muted);margin:0 0 10px}.route-link{display:inline-block;background:var(--ink);color:#fff;text-decoration:none;border-radius:8px;padding:10px 13px;font-size:12px}.note{border-left:2px solid var(--accent);padding:10px 13px;background:var(--soft);font-size:12px;color:#55554d;margin:14px 0}.empty{padding:30px;text-align:center;color:var(--muted);font-size:13px}.footer{border-top:1px solid var(--line);margin-top:35px;padding-top:16px;color:var(--muted);font-size:11px}.hidden{display:none!important}.leaflet-popup-content-wrapper,.leaflet-popup-tip{background:#fbfaf7;color:#25251f}.leaflet-popup-content{font-family:inherit;font-size:12px}.leaflet-popup-content a{color:#69715a;font-weight:650}
 @media(max-width:600px){.shell{padding-inline:14px}.nav{margin-inline:-14px;padding-inline:14px}.place-list{grid-template-columns:1fr}.day{grid-template-columns:62px 1fr;padding:13px}.filters{grid-template-columns:1fr}.filters input{grid-column:auto}#map{height:390px}.hero{padding-top:27px}.meta{gap:10px}}
+
+.edit-toolbar{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}.edit-toolbar button{border:1px solid var(--line);border-radius:9px;padding:11px 14px;background:var(--surface);color:var(--ink)}.edit-toolbar button:first-child{background:var(--ink);color:white}.edit-status{font-size:12px;color:var(--muted)}dialog{background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:16px;width:calc(100% - 28px);max-width:540px;max-height:88dvh;padding:22px}dialog::backdrop{background:#25251f88}dialog h2{font:400 28px Georgia,serif;margin:0 0 16px}dialog label{display:block;font-size:13px;margin:12px 0}dialog input,dialog textarea{display:block;width:100%;padding:12px;border:1px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink);font:inherit;font-size:16px;margin-top:5px}dialog p,dialog summary{font-size:13px}dialog a{color:var(--accent)}dialog button:disabled{opacity:.5}dialog textarea{resize:vertical}
 </style>
 </head>
 <body>
@@ -35,19 +37,21 @@ button,input,select{font:inherit}button{cursor:pointer}.shell{max-width:1020px;m
 <div class="eyebrow">28 NOVIEMBRE — 8 DICIEMBRE</div>
 <h1>Buenos Aires</h1>
 <div class="sub">Una ciudad para recorrer sin prisa.</div>
-<div class="meta"><span>⌖ Palermo · alojamiento</span><span>11 jornadas</span><span>Consulta desde el celular</span></div>
+<div class="meta"><span>⌖ Costa Rica 4150 · Palermo</span><span>11 jornadas</span><span>Consulta desde el celular</span></div>
 </section>
 <nav class="nav">
 <button class="tab active" data-view="agenda">Por fecha</button><button class="tab" data-view="sectores">Por sector</button><button class="tab" data-view="lugares">Todos los lugares</button><button class="tab" data-view="mapa">Mapa y recorridos</button>
 </nav>
 <main>
+<div class="edit-toolbar"><button id="addPoint" type="button">＋ Agregar punto</button><button id="syncPoints" type="button">Sincronizar con GitHub</button></div>
+<p class="edit-status" id="editStatus" role="status">Los cambios se guardan en este dispositivo. Sincroniza para verlos en otros dispositivos.</p>
 <section id="agendaView">
 <div class="section-head"><div><div class="eyebrow">Tu viaje</div><h2>Agenda por fecha</h2></div><div class="count">28 nov. — 8 dic.</div></div>
 <div class="day-list" id="agendaList"></div>
 </section>
 <section id="sectoresView" class="hidden">
 <div class="section-head"><div><div class="eyebrow">Explorar</div><h2>Por sector</h2></div></div>
-<div class="filters"><div class="check-dropdown" id="sectorPickDD" data-target="sectorPick"><button type="button" class="check-trigger" aria-expanded="false">Todos los sectores <span>⌄</span></button><div class="check-menu"></div></div><input type="hidden" id="sectorPick"><select id="catPick"></select><select id="sectorDate"></select></div><div class="filter-help">Puedes seleccionar varios sectores: mantén pulsado en el celular o usa la selección múltiple del navegador.</div>
+<div class="filters"><div class="check-dropdown" id="sectorPickDD" data-target="sectorPick"><button type="button" class="check-trigger" aria-expanded="false">Todos los sectores <span>⌄</span></button><div class="check-menu"></div></div><input type="hidden" id="sectorPick"><select id="catPick"></select><select id="sectorDate"></select></div><div class="filter-help">Marca uno o varios sectores y pulsa Aplicar.</div>
 <div class="place-list" id="sectorPlaces"></div>
 </section>
 <section id="lugaresView" class="hidden">
@@ -66,6 +70,7 @@ button,input,select{font:inherit}button{cursor:pointer}.shell{max-width:1020px;m
 
 </div>
 <script>
+const escapeHtml=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const days=[
 ["Sáb. 28 nov.","Palermo · llegada y fútbol","Aterrizaje 6:00 a. m.; desayuno; paseo corto; check-in 3:00 p. m.; descanso 3:00–4:30 p. m.; final Palmeiras vs. Estudiantes 5:00 p. m.","Plaza Armenia, Plaza Serrano, cafés y tiendas cercanas. Confirmar bar con transmisión."],
 ["Dom. 29 nov.","San Telmo","Feria dominical, Plaza Dorrego, Pasaje Defensa, Mafalda y Mercado de San Telmo.","Antigüedades, librerías, cafés históricos y Museo de Arte Moderno como adicional."],
@@ -80,7 +85,7 @@ const days=[
 ["Mar. 8 dic.","Palermo y pendientes","Cafés, librerías, compras, lugares pendientes y despedida.","Día feriado. Confirmar hora del vuelo del 9 y traslado al aeropuerto."]
 ];
 const P=[
-["Palermo","Alojamiento","Base","Viaje","Punto de partida","", null,null],
+["Palermo","Alojamiento","Base","Viaje","Punto de partida","Costa Rica 4150", null,null],
 ["Palermo","Plaza Armenia","Plaza","Plan de sector","Paseo, tiendas y cafés","", -34.5892,-58.4201],
 ["Palermo","Plaza Serrano","Plaza","Plan de sector","Tiendas, diseño y vida de barrio","", -34.5884,-58.4292],
 ["Palermo","Don Julio","Restaurante","Phil Rosenthal","Parrilla argentina","Guatemala 4699", -34.5889,-58.4208],
@@ -162,7 +167,7 @@ const sectorDates={
  "Montevideo":"Opcional",
  "Colonia":"Opcional"
 };
-function dateFor(p){return sectorDates[p[0]]||"Por asignar"}
+function dateFor(p){return p[8]||sectorDates[p[0]]||"Por asignar"}
 const dateOptions=["Sáb. 28 nov.","Dom. 29 nov.","Lun. 30 nov.","Mar. 1 dic.","Mié. 2 dic.","Jue. 3 dic.","Vie. 4 dic.","Sáb. 5 dic.","Dom. 6 dic.","Lun. 7 dic.","Mar. 8 dic.","Opcional","Por asignar"];
 
 const sectors=[...new Set(P.map(x=>x[0]))];
@@ -175,7 +180,8 @@ function mapsSearch(p){
 function mapsRoute(list){
  const valid=list.filter(p=>p[6]!=null&&p[7]!=null).slice(0,10);
  if(!valid.length)return "https://www.google.com/maps";
- const origin="Palermo, Buenos Aires, Argentina";
+ const home=P.find(p=>p[2]==="Base");
+ const origin=home&&home[5]?home[5]+", "+home[0]+", Buenos Aires, Argentina":"Costa Rica 4150, Palermo, Buenos Aires, Argentina";
  const last=valid[valid.length-1];
  const destination=last[1]+(last[5]?", "+last[5]:"")+", "+last[0]+", Buenos Aires, Argentina";
  const waypoints=valid.slice(0,-1).map(p=>p[1]+(p[5]?", "+p[5]:"")+", "+p[0]+", Buenos Aires, Argentina");
@@ -185,7 +191,7 @@ function mapsRoute(list){
 }
 function card(p){return `<article class="place"><div class="place-top"><div><h3>${p[1]}</h3><p>${p[0]}${p[4]?" · "+p[4]:""}</p></div><span class="tag">${p[2]}</span></div><p>${p[5]||""}</p><div class="date-tag">Fecha: ${dateFor(p)}</div><div class="origin">${p[3]} · Pendiente de verificación cuando corresponda</div><div class="actions"><a href="${mapsSearch(p)}" target="_blank" rel="noopener">Cómo llegar ↗</a><button onclick="navigator.clipboard?.writeText('${(p[1]+" "+p[4]).replace(/'/g,"")}')">Copiar dirección</button></div></article>`}
 function fillSelect(el,values,first){
- const node=$(el);node.innerHTML=`<option value="">${first}</option>`+values.map(v=>`<option>${v}</option>`).join("");
+ const node=$(el);node.innerHTML=`<option value="">${escapeHtml(first)}</option>`+values.map(v=>`<option>${escapeHtml(v)}</option>`).join("");
 }
 function setupCheckboxDropdown(id,values,placeholder){
  const wrap=$(id+"DD"); if(!wrap)return;
@@ -205,8 +211,9 @@ function setupCheckboxDropdown(id,values,placeholder){
  document.addEventListener("click",e=>{if(!wrap.contains(e.target)){wrap.classList.remove("open");trigger.setAttribute("aria-expanded","false")}});
 }
 function selectedValues(el){return $(el).value?$(el).value.split("|"):[]}
-function renderAgenda(){$("agendaList").innerHTML=days.map((d,i)=>`<article class="day"><div class="day-date">FECHA<br>${d[0]}</div><div><h3>${d[1]}</h3><p>${d[2]}</p><div class="detail">${d[3]}</div><button onclick="showSector('${d[1].split(/[·,/]/)[0].trim()}')">Explorar lugares de esta jornada →</button></div></article>`).join("")}
-function showSector(name){document.querySelector('[data-view="sectores"]').click();let found=sectors.find(s=>s.toLowerCase().includes(name.toLowerCase())||name.toLowerCase().includes(s.toLowerCase()));$("sectorPickDD").querySelectorAll("input").forEach(o=>o.checked=(o.value===found));$("sectorPick").value=found||"";$("sectorPickDD").querySelector(".check-trigger").innerHTML=(found||"Todos los sectores")+" <span>⌄</span>";renderSector()}
+function renderAgenda(){$("agendaList").innerHTML=days.map((d,i)=>`<article class="day"><div class="day-date">FECHA<br>${escapeHtml(d[0])}</div><div><h3>${escapeHtml(d[1])}</h3><p>${escapeHtml(d[2])}</p><div class="detail">${escapeHtml(d[3])}</div><button data-explore-day="${i}">Explorar lugares de esta jornada →</button></div></article>`).join("")}
+document.addEventListener("click",e=>{const b=e.target.closest('[data-explore-day]');if(b)showSector(days[+b.dataset.exploreDay][1].split(/[·,/]/)[0].trim())});
+function showSector(name){document.querySelector('[data-view="sectores"]').click();let found=sectors.find(s=>s.toLowerCase().includes(name.toLowerCase())||name.toLowerCase().includes(s.toLowerCase()));$("sectorPickDD").querySelectorAll("input").forEach(o=>o.checked=(o.value===found));$("sectorPick").value=found||"";$("sectorPickDD").querySelector(".check-trigger").innerHTML=escapeHtml(found||"Todos los sectores")+" <span>⌄</span>";renderSector()}
 function renderSector(){let ss=selectedValues("sectorPick"),c=$("catPick").value,d=$("sectorDate").value;let list=P.filter(p=>(!ss.length||ss.includes(p[0]))&&(!c||p[2]===c)&&(!d||dateFor(p).includes(d)));$("sectorPlaces").innerHTML=list.length?list.map(card).join(""):'<div class="empty">No hay lugares para estos filtros.</div>'}
 function renderAll(){let q=$("search").value.toLowerCase(),ss=selectedValues("filterSector"),c=$("filterCat").value,o=$("filterOrigin").value,d=$("filterDate").value;let list=P.filter(p=>(!q||p.join(" ").toLowerCase().includes(q))&&(!ss.length||ss.includes(p[0]))&&(!c||p[2]===c)&&(!o||p[3]===o)&&(!d||dateFor(p).includes(d)));$("allPlaces").innerHTML=list.length?list.map(card).join(""):'<div class="empty">No encontramos resultados.</div>';$("totalCount").textContent=list.length+" lugares"}
 let map,markers=[];
@@ -232,7 +239,7 @@ function renderMap(){
  const located=list.filter(p=>p[6]!=null&&p[7]!=null);
  located.forEach(p=>{
    const marker=L.marker([p[6],p[7]]).addTo(map);
-   marker.bindPopup(`<strong>${p[1]}</strong><br>${p[0]}<br>${p[2]}<br>Fecha: ${dateFor(p)}<br><a target="_blank" rel="noopener" href="${mapsSearch(p)}">Cómo llegar con Google Maps ↗</a>`);
+   marker.bindPopup(`<strong>${escapeHtml(p[1])}</strong><br>${escapeHtml(p[0])}<br>${escapeHtml(p[2])}<br>Fecha: ${escapeHtml(dateFor(p))}<br><a target="_blank" rel="noopener" href="${mapsSearch(p)}">Cómo llegar con Google Maps ↗</a>`);
    markers.push(marker);
  });
  if(located.length){
@@ -258,4 +265,17 @@ $("filterSectorDD").addEventListener("selectionchange",renderAll);["search","fil
 $("mapSectorDD").addEventListener("selectionchange",renderMap);["mapCat","mapDate"].forEach(id=>$(id).addEventListener("change",renderMap));
 renderAgenda();renderSector();renderAll();
 </script>
+
+<dialog id="pointDialog"><form id="placeForm"><h2 id="pointTitle">Agregar punto</h2>
+<label>Nombre<input id="point-name" required maxlength="160"></label>
+<label>Barrio o sector<input id="point-sector" list="editorSectors" required maxlength="100"></label><datalist id="editorSectors"></datalist>
+<label>Categoría<input id="point-category" list="editorCats" required maxlength="100"></label><datalist id="editorCats"></datalist>
+<label>Dirección<input id="point-address" maxlength="240" placeholder="Calle y número, ciudad"></label>
+<label>Fecha o días de visita<input id="point-date" maxlength="200" placeholder="Ej.: Lun. 30 nov."></label>
+<label>Notas<textarea id="point-notes" maxlength="2000" rows="3"></textarea></label>
+<details><summary>Ubicación en el mapa (opcional)</summary><p>Usa coordenadas verificadas. Sin ellas podrás abrir la dirección en Google Maps, pero no habrá marcador en el mapa de la guía.</p><label>Latitud<input id="point-lat" type="number" step="any" min="-90" max="90" placeholder="-34.59"></label><label>Longitud<input id="point-lng" type="number" step="any" min="-180" max="180" placeholder="-58.42"></label></details>
+<div class="edit-toolbar"><button type="submit">Guardar punto</button><button type="button" data-close-dialog>Cancelar</button><button type="button" id="deletePoint" hidden>Eliminar lugar</button></div></form></dialog>
+<dialog id="dayDialog"><form id="dayForm"><h2>Editar jornada</h2><label>Fecha<input id="day-date" required maxlength="100"></label><label>Título<input id="day-title" required maxlength="200"></label><label>Plan<textarea id="day-plan" rows="3" maxlength="3000"></textarea></label><label>Notas<textarea id="day-notes" rows="3" maxlength="3000"></textarea></label><p>Esta fecha cambia la jornada. Puedes cambiar la fecha de cada lugar desde su botón Editar.</p><div class="edit-toolbar"><button type="submit">Guardar jornada</button><button type="button" data-close-dialog>Cancelar</button></div></form></dialog>
+<dialog id="syncDialog"><form id="syncForm"><h2>Sincronizar con GitHub</h2><p>Publica tus puntos y fechas en esta guía pública y recibe los cambios de tus otros dispositivos. No publiques notas que quieras mantener privadas.</p><p>En GitHub crea un <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">token de acceso limitado</a>: selecciona únicamente <strong>viajesme</strong> y el permiso <strong>Contents: Read and write</strong>, con vencimiento. Si te pide un nombre, usa «Guía de viajes».</p><label>Token de GitHub<input id="githubToken" type="password" required autocomplete="off" spellcheck="false"></label><p>Se usa para esta sincronización y no se guarda. No lo compartas por chat. Solo quien tenga permisos de edición puede publicar.</p><p id="syncStatus" role="status"></p><div class="edit-toolbar"><button id="publishPoints" type="submit">Publicar y sincronizar</button><button type="button" data-close-dialog>Cancelar</button></div></form></dialog>
+<script src="editor.js"></script>
 </body></html>
