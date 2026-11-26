@@ -28,6 +28,8 @@ button,input,select{font:inherit}button{cursor:pointer}.shell{max-width:1020px;m
 @media(max-width:600px){.shell{padding-inline:14px}.nav{margin-inline:-14px;padding-inline:14px}.place-list{grid-template-columns:1fr}.day{grid-template-columns:62px 1fr;padding:13px}.filters{grid-template-columns:1fr}.filters input{grid-column:auto}#map{height:390px}.hero{padding-top:27px}.meta{gap:10px}}
 
 .edit-toolbar{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}.edit-toolbar button{border:1px solid var(--line);border-radius:9px;padding:11px 14px;background:var(--surface);color:var(--ink)}.edit-toolbar button:first-child{background:var(--ink);color:white}.edit-status{font-size:12px;color:var(--muted)}dialog{background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:16px;width:calc(100% - 28px);max-width:540px;max-height:88dvh;padding:22px}dialog::backdrop{background:#25251f88}dialog h2{font:400 28px Georgia,serif;margin:0 0 16px}dialog label{display:block;font-size:13px;margin:12px 0}dialog input,dialog textarea{display:block;width:100%;padding:12px;border:1px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink);font:inherit;font-size:16px;margin-top:5px}dialog p,dialog summary{font-size:13px}dialog a{color:var(--accent)}dialog button:disabled{opacity:.5}dialog textarea{resize:vertical}
+
+.packing-progress{background:var(--soft);padding:20px;border-radius:14px;margin:18px 0}.packing-progress>div{display:flex;justify-content:space-between;align-items:center;gap:16px}.packing-progress span{font-size:13px}.packing-progress strong{font:400 36px Georgia,serif}.packing-progress progress{display:block;width:100%;height:10px;margin-top:16px;accent-color:var(--accent)}.packing-group{border:1px solid var(--line);background:var(--surface);border-radius:14px;margin:14px 0;padding:0 15px 12px}.packing-group summary{display:flex;justify-content:space-between;align-items:center;gap:12px;cursor:pointer;padding:17px 0;list-style:revert}.packing-group h3{font:400 21px Georgia,serif;margin:0}.packing-group summary span{font-size:12px;white-space:nowrap;color:var(--muted)}.packing-row{display:flex;gap:10px;align-items:center;border-top:1px solid var(--line);padding:9px 0}.packing-label{display:flex;align-items:center;gap:11px;flex:1;min-width:0;font-size:13px;cursor:pointer;min-height:44px}.packing-label span{overflow-wrap:anywhere}.packing-label input{width:20px;height:20px;flex-shrink:0;accent-color:var(--accent)}.packing-label input:checked+span{text-decoration:line-through;color:var(--muted)}.packing-row button{border:0;background:transparent;color:var(--accent);padding:10px 6px;font-size:12px;min-height:44px}.packing-add{border:1px solid var(--line);border-radius:8px;padding:10px;background:transparent;color:var(--accent);margin-top:10px}.packing-row button:focus-visible,.packing-label input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 </style>
 </head>
 <body>
@@ -40,11 +42,18 @@ button,input,select{font:inherit}button{cursor:pointer}.shell{max-width:1020px;m
 <div class="meta"><span>⌖ Costa Rica 4150 · Palermo</span><span>11 jornadas</span><span>Consulta desde el celular</span></div>
 </section>
 <nav class="nav">
-<button class="tab active" data-view="agenda">Por fecha</button><button class="tab" data-view="sectores">Por sector</button><button class="tab" data-view="lugares">Todos los lugares</button><button class="tab" data-view="mapa">Mapa y recorridos</button>
+<button class="tab active" data-view="agenda">Por fecha</button><button class="tab" data-view="sectores">Por sector</button><button class="tab" data-view="lugares">Todos los lugares</button><button class="tab" data-view="mapa">Mapa y recorridos</button><button class="tab" data-view="checklist">Checklist</button>
 </nav>
 <main>
 <div class="edit-toolbar"><button id="addPoint" type="button">＋ Agregar punto</button><button id="syncPoints" type="button">Sincronizar con GitHub</button></div>
 <p class="edit-status" id="editStatus" role="status">Los cambios se guardan en este dispositivo. Sincroniza para verlos en otros dispositivos.</p>
+<section id="checklistView" class="hidden">
+<div class="section-head"><div><div class="eyebrow">Preparar el viaje</div><h2>Checklist de viaje · Argentina</h2></div></div>
+<div class="packing-progress"><div><span>Progreso de equipaje</span><strong id="packingCount" aria-live="polite">0/79</strong></div><progress id="packingProgress" value="0" max="79" aria-label="Progreso de equipaje"></progress></div>
+<div class="edit-toolbar"><button type="button" id="addChecklistItem">＋ Agregar elemento</button></div>
+<p class="edit-status" id="checklistStatus" role="status">Marca lo que ya tengas listo. Puedes editar, agregar y quitar elementos. Se guarda en este dispositivo; usa Sincronizar con GitHub para verlo en los demás.</p>
+<div id="checklistGroups"></div>
+</section>
 <section id="agendaView">
 <div class="section-head"><div><div class="eyebrow">Tu viaje</div><h2>Agenda por fecha</h2></div><div class="count">28 nov. — 8 dic.</div></div>
 <div class="day-list" id="agendaList"></div>
@@ -255,7 +264,7 @@ function renderMap(){
    : "Abrir Google Maps ↗";
 }
 
-document.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll(".tab").forEach(x=>x.classList.toggle("active",x===b));["agenda","sectores","lugares","mapa"].forEach(v=>$(v+"View").classList.toggle("hidden",v!==b.dataset.view));if(b.dataset.view==="mapa"){setTimeout(()=>{initMap();if(map)map.invalidateSize()},120)}}));
+document.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll(".tab").forEach(x=>x.classList.toggle("active",x===b));["agenda","sectores","lugares","mapa","checklist"].forEach(v=>$(v+"View").classList.toggle("hidden",v!==b.dataset.view));if(b.dataset.view==="mapa"){setTimeout(()=>{initMap();if(map)map.invalidateSize()},120)}}));
 setupCheckboxDropdown("sectorPick",sectors,"Todos los sectores");setupCheckboxDropdown("filterSector",sectors,"Todos los sectores");setupCheckboxDropdown("mapSector",sectors,"Todos los sectores");
 fillSelect("catPick",cats,"Todas las categorías");fillSelect("filterCat",cats,"Todas las categorías");fillSelect("mapCat",cats,"Todas las categorías");
 fillSelect("filterOrigin",[...new Set(P.map(p=>p[3]))],"Todos los orígenes");
@@ -266,6 +275,7 @@ $("mapSectorDD").addEventListener("selectionchange",renderMap);["mapCat","mapDat
 renderAgenda();renderSector();renderAll();
 </script>
 
+<dialog id="checklistDialog"><form id="checklistForm"><h2 id="checklistDialogTitle">Agregar elemento</h2><label>Elemento<input id="checklistText" required maxlength="400" autocomplete="off"></label><label>Categoría<input id="checklistCategory" required maxlength="100" list="checklistCategories" autocomplete="off"></label><datalist id="checklistCategories"></datalist><div class="edit-toolbar"><button type="submit">Guardar elemento</button><button type="button" data-close-dialog>Cancelar</button></div></form></dialog>
 <dialog id="pointDialog"><form id="placeForm"><h2 id="pointTitle">Agregar punto</h2>
 <label>Nombre<input id="point-name" required maxlength="160"></label>
 <label>Barrio o sector<input id="point-sector" list="editorSectors" required maxlength="100"></label><datalist id="editorSectors"></datalist>
@@ -276,6 +286,6 @@ renderAgenda();renderSector();renderAll();
 <details><summary>Ubicación en el mapa (opcional)</summary><p>Usa coordenadas verificadas. Sin ellas podrás abrir la dirección en Google Maps, pero no habrá marcador en el mapa de la guía.</p><label>Latitud<input id="point-lat" type="number" step="any" min="-90" max="90" placeholder="-34.59"></label><label>Longitud<input id="point-lng" type="number" step="any" min="-180" max="180" placeholder="-58.42"></label></details>
 <div class="edit-toolbar"><button type="submit">Guardar punto</button><button type="button" data-close-dialog>Cancelar</button><button type="button" id="deletePoint" hidden>Eliminar lugar</button></div></form></dialog>
 <dialog id="dayDialog"><form id="dayForm"><h2>Editar jornada</h2><label>Fecha<input id="day-date" required maxlength="100"></label><label>Título<input id="day-title" required maxlength="200"></label><label>Plan<textarea id="day-plan" rows="3" maxlength="3000"></textarea></label><label>Notas<textarea id="day-notes" rows="3" maxlength="3000"></textarea></label><p>Esta fecha cambia la jornada. Puedes cambiar la fecha de cada lugar desde su botón Editar.</p><div class="edit-toolbar"><button type="submit">Guardar jornada</button><button type="button" data-close-dialog>Cancelar</button></div></form></dialog>
-<dialog id="syncDialog"><form id="syncForm"><h2>Sincronizar con GitHub</h2><p>Publica tus puntos y fechas en esta guía pública y recibe los cambios de tus otros dispositivos. No publiques notas que quieras mantener privadas.</p><p>En GitHub crea un <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">token de acceso limitado</a>: selecciona únicamente <strong>viajesme</strong> y el permiso <strong>Contents: Read and write</strong>, con vencimiento. Si te pide un nombre, usa «Guía de viajes».</p><label>Token de GitHub<input id="githubToken" type="password" required autocomplete="off" spellcheck="false"></label><p>Se usa para esta sincronización y no se guarda. No lo compartas por chat. Solo quien tenga permisos de edición puede publicar.</p><p id="syncStatus" role="status"></p><div class="edit-toolbar"><button id="publishPoints" type="submit">Publicar y sincronizar</button><button type="button" data-close-dialog>Cancelar</button></div></form></dialog>
+<dialog id="syncDialog"><form id="syncForm"><h2>Sincronizar con GitHub</h2><p>Publica tus puntos, fechas y checklist en esta guía pública y recibe los cambios de tus otros dispositivos. No publiques notas que quieras mantener privadas.</p><p>En GitHub crea un <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">token de acceso limitado</a>: selecciona únicamente <strong>viajesme</strong> y el permiso <strong>Contents: Read and write</strong>, con vencimiento. Si te pide un nombre, usa «Guía de viajes».</p><label>Token de GitHub<input id="githubToken" type="password" required autocomplete="off" spellcheck="false"></label><p>Se usa para esta sincronización y no se guarda. No lo compartas por chat. Solo quien tenga permisos de edición puede publicar.</p><p id="syncStatus" role="status"></p><div class="edit-toolbar"><button id="publishPoints" type="submit">Publicar y sincronizar</button><button type="button" data-close-dialog>Cancelar</button></div></form></dialog>
 <script src="editor.js"></script>
 </body></html>
