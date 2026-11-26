@@ -1,6 +1,16 @@
 {
   "places": {},
-  "days": {},
+  "days": {
+    "5": {
+      "value": [
+        "Jue. 3 dic.",
+        "Microcentro y Monserrat",
+        "Plaza de Mayo, Casa Rosada, Catedral, Cabildo, Manzana de las Luces, Tortoni, Obelisco y Corrientes. Por la noche: show de tango, después del centro, el Obelisco y la Avenida Corrientes; así aprovechas que ya estarás en la zona sin desplazarte desde Palermo exclusivamente para el espectáculo.",
+        "Librería de Ávila, CP67, La Ideal, Los Galgos, Che Malbec, teatro y ronda de Plaza de Mayo. Tango · Para el presupuesto total de COP 3 millones, priorizar solo espectáculo y comer antes en un restaurante de precio moderado. Opciones: Tango Porteño (Centro, cerca del Obelisco): ARS 60.000, solo espectáculo, tarifa promocional publicada según la referencia compartida; producción teatral grande en un antiguo cine art déco. Piazzolla Tango (Microcentro, Galería Güemes): desde ARS 53.302, solo espectáculo, sin traslados ni cena; destaca la arquitectura de la sala. Salón Marabú (Microcentro, Maipú 365): alternativa de milonga tradicional, con ambiente social y baile; programación y precio según la noche. Para el jueves 3, elegir entre Piazzolla Tango y Tango Porteño. Reservar aproximadamente COP 150.000–200.000 para la entrada y algo más para el regreso a Palermo: valores de planificación, no una conversión cambiaria verificada. El 3 de diciembre encaja con las programaciones habituales según la referencia compartida, pero la disponibilidad específica de esa noche sigue pendiente de confirmación. Consultar tarifas, entradas y disponibilidad antes de reservar."
+      ],
+      "updated": 1795737456761
+    }
+  },
   "checklist": {
     "check-1-5": {
       "deleted": true,
