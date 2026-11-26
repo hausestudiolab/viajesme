@@ -61,15 +61,27 @@ $('syncPoints').onclick=()=>$('syncDialog').showModal();
 const api='https://api.github.com/repos/hausestudiolab/viajesme/contents/points.json';
 function decodeContent(content){return JSON.parse(new TextDecoder().decode(Uint8Array.from(atob(content.replace(/\s/g,'')),c=>c.charCodeAt(0))));}
 function encodeContent(value){const bytes=new TextEncoder().encode(JSON.stringify(value,null,2));let s='';for(const b of bytes)s+=String.fromCharCode(b);return btoa(s);}
+async function githubError(response, token){
+ let detail='';try{const data=await response.json();detail=typeof data.message==='string'?data.message:'';}catch{}
+ if(token)detail=detail.split(token).join('[oculto]');
+ let advice;
+ if(response.status===401)advice='El token no es válido o venció. Crea uno nuevo.';
+ else if(response.status===403||response.status===404)advice='El token no permite guardar en viajesme. En GitHub revisa Resource owner: hausestudiolab, Repository access: viajesme y Repository permissions → Contents: Read and write. Después guarda los cambios del token.';
+ else if(response.status===409)advice='Hubo otro cambio al mismo tiempo. Vuelve a sincronizar.';
+ else if(response.status===422)advice='GitHub rechazó los datos. Vuelve a sincronizar; si persiste, comparte este mensaje de error, sin el token.';
+ else if(response.status===429)advice='GitHub limitó temporalmente las solicitudes. Espera unos minutos e inténtalo otra vez.';
+ else advice='GitHub no pudo completar el guardado. Inténtalo nuevamente.';
+ return new Error(advice+' (HTTP '+response.status+(detail?' · '+detail:'')+')');
+}
 $('syncForm').onsubmit=async event=>{
  event.preventDefault();const token=$('githubToken').value.trim();if(!token)return;
  const button=$('publishPoints');button.disabled=true;$('syncStatus').textContent='Sincronizando…';
  try{
   const headers={Authorization:'Bearer '+token,Accept:'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28'};
   const response=await fetch(api+'?ref=main&_='+Date.now(),{headers,cache:'no-store'});let sha,remote={places:{},days:{}};
-  if(response.ok){const file=await response.json();sha=file.sha;remote=validEdits(decodeContent(file.content));}else if(response.status!==404)throw Error('GitHub rechazó la conexión. Comprueba el token y sus permisos.');
+  if(response.ok){const file=await response.json();sha=file.sha;remote=validEdits(decodeContent(file.content));}else if(response.status!==404)throw await githubError(response,token);
   const merged=mergeEdits(remote,edits);const result=await fetch(api,{method:'PUT',headers:{...headers,'Content-Type':'application/json'},body:JSON.stringify({message:'Actualizar puntos, fechas y checklist de la guía',content:encodeContent(merged),branch:'main',...(sha?{sha}:{})})});
-  if(!result.ok)throw Error(result.status===409?'Hubo otro cambio al mismo tiempo. Vuelve a sincronizar.':'No se pudo publicar. Revisa que el token permita Contents: Read and write en viajesme.');
+  if(!result.ok)throw await githubError(result,token);
   persist(merged);refreshPlaces();$('githubToken').value='';$('syncDialog').close();status('Sincronizado con GitHub. Abre o recarga la guía en el otro dispositivo para recibir los cambios.');
  }catch(error){$('syncStatus').textContent=error.message;}finally{button.disabled=false;}
 };
