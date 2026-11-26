@@ -1,1 +1,10 @@
-{"places":{},"days":{}}
+{
+  "places": {},
+  "days": {},
+  "checklist": {
+    "check-1-5": {
+      "deleted": true,
+      "updated": 1795727588743
+    }
+  }
+}
