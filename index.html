@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f4f1ea">
+<title>Buenos Aires · Guía personal</title>
+<link rel="preconnect" href="https://unpkg.com">
+<link rel="preconnect" href="https://tile.openstreetmap.org">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" onerror="this.onerror=null;this.href='https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css'">
+
+
+<style>
+:root{--paper:#f4f1ea;--surface:#fbfaf7;--ink:#25251f;--muted:#77766d;--line:#d9d5ca;--accent:#69715a;--soft:#e9e6dc;--shadow:0 8px 28px rgba(35,34,28,.06)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.45}
+button,input,select{font:inherit}button{cursor:pointer}.shell{max-width:1020px;margin:auto;padding:0 18px 70px}.top{padding:22px 0 18px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}.eyebrow,.kicker{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);font-weight:650}.brand{font-size:12px;letter-spacing:.1em}.hero{padding:34px 0 24px}.hero h1{font-family:Georgia,serif;font-size:clamp(38px,8vw,64px);font-weight:400;letter-spacing:-.045em;line-height:.98;margin:9px 0 12px}.sub{color:var(--muted);font-size:14px}.meta{display:flex;gap:18px;flex-wrap:wrap;margin-top:20px;font-size:12px;color:var(--muted)}.meta span{display:flex;align-items:center;gap:6px}.nav{position:sticky;top:0;z-index:50;background:rgba(244,241,234,.95);backdrop-filter:blur(12px);border-block:1px solid var(--line);margin:0 -18px;padding:10px 18px;display:flex;gap:7px;overflow:auto}.tab{border:1px solid var(--line);background:transparent;border-radius:999px;padding:8px 13px;white-space:nowrap;font-size:12px;color:var(--muted)}.tab.active{background:var(--ink);color:#fff;border-color:var(--ink)}main{padding-top:22px}.section-head{display:flex;justify-content:space-between;align-items:end;gap:15px;margin:10px 0 16px}.section-head h2{font:400 30px Georgia,serif;margin:4px 0}.count{font-size:11px;color:var(--muted)}.filters{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:14px 0 18px}.filters input,.filters select{width:100%;min-width:0;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px;color:var(--ink);font-size:13px}.filters input{grid-column:1/-1}
+.check-dropdown{position:relative;min-width:0;width:100%}
+.check-trigger{width:100%;display:flex;justify-content:space-between;align-items:center;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px;color:var(--ink);font-size:13px}
+.check-trigger span{color:var(--muted);font-size:16px}
+.check-menu{display:none;position:absolute;z-index:80;top:calc(100% + 5px);left:0;right:0;max-height:260px;overflow:auto;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:7px;box-shadow:0 12px 30px rgba(30,29,24,.14)}
+.check-dropdown.open .check-menu{display:block}
+.check-option{display:flex;align-items:center;gap:10px;padding:9px 7px;border-radius:7px;font-size:12px;color:var(--ink)}
+.check-option:hover{background:var(--soft)}
+.check-option input{accent-color:var(--accent);width:16px;height:16px;margin:0}
+.check-menu-foot{display:flex;justify-content:space-between;border-top:1px solid var(--line);padding:9px 5px 3px;margin-top:4px}
+.check-menu-foot button{border:0;background:none;color:var(--accent);font-size:11px;padding:4px}
+.filters select[multiple]{min-height:112px;padding:8px}.filter-help{font-size:10px;color:var(--muted);margin:-8px 0 12px}.day-list{display:grid;gap:10px}.day{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:15px;display:grid;grid-template-columns:76px 1fr;gap:12px;box-shadow:var(--shadow)}.day-date{font-size:10px;letter-spacing:.08em;color:var(--muted);text-transform:uppercase}.day h3{font:400 20px Georgia,serif;margin:0 0 4px}.day p{font-size:12px;color:var(--muted);margin:0}.day .detail{font-size:12px;margin-top:8px;color:#55554d}.day button{margin-top:10px;border:0;background:transparent;padding:0;color:var(--accent);font-size:12px;font-weight:650}.place-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.place{background:var(--surface);border:1px solid var(--line);border-radius:13px;padding:14px;min-width:0}.place-top{display:flex;justify-content:space-between;gap:8px;align-items:start}.place h3{font:400 19px Georgia,serif;margin:0 0 5px}.place p{font-size:12px;color:var(--muted);margin:4px 0}.date-tag{font-size:10px;color:var(--accent);margin:7px 0 0}.tag{font-size:9px;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--line);border-radius:99px;padding:4px 7px;color:var(--muted);white-space:nowrap}.origin{font-size:10px;color:var(--accent);margin-top:8px}.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;border-top:1px solid var(--line);padding-top:10px}.actions a,.actions button{color:var(--ink);font-size:11px;text-decoration:none;background:none;border:0;padding:0}.actions a:first-child{font-weight:650}.map-wrap{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden}.map-controls{display:flex;gap:8px;flex-wrap:wrap;padding:12px}.map-controls select{flex:1;min-width:150px;border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:10px;font-size:12px}#map{height:440px;width:100%;background:#e7e5dc}.map-note{padding:10px 13px;font-size:11px;color:var(--muted);border-top:1px solid var(--line)}.routebox{background:var(--soft);border-radius:12px;padding:14px;margin-top:12px}.routebox h3{font:400 20px Georgia,serif;margin:0 0 7px}.routebox p{font-size:12px;color:var(--muted);margin:0 0 10px}.route-link{display:inline-block;background:var(--ink);color:#fff;text-decoration:none;border-radius:8px;padding:10px 13px;font-size:12px}.note{border-left:2px solid var(--accent);padding:10px 13px;background:var(--soft);font-size:12px;color:#55554d;margin:14px 0}.empty{padding:30px;text-align:center;color:var(--muted);font-size:13px}.footer{border-top:1px solid var(--line);margin-top:35px;padding-top:16px;color:var(--muted);font-size:11px}.hidden{display:none!important}.leaflet-popup-content-wrapper,.leaflet-popup-tip{background:#fbfaf7;color:#25251f}.leaflet-popup-content{font-family:inherit;font-size:12px}.leaflet-popup-content a{color:#69715a;font-weight:650}
+@media(max-width:600px){.shell{padding-inline:14px}.nav{margin-inline:-14px;padding-inline:14px}.place-list{grid-template-columns:1fr}.day{grid-template-columns:62px 1fr;padding:13px}.filters{grid-template-columns:1fr}.filters input{grid-column:auto}#map{height:390px}.hero{padding-top:27px}.meta{gap:10px}}
+</style>
+</head>
+<body>
+<div class="shell">
+<header class="top"><div class="brand">GUÍA PERSONAL · 2026</div><div class="eyebrow">ARGENTINA</div></header>
+<section class="hero">
+<div class="eyebrow">28 NOVIEMBRE — 8 DICIEMBRE</div>
+<h1>Buenos Aires</h1>
+<div class="sub">Una ciudad para recorrer sin prisa.</div>
+<div class="meta"><span>⌖ Palermo · alojamiento</span><span>11 jornadas</span><span>Consulta desde el celular</span></div>
+</section>
+<nav class="nav">
+<button class="tab active" data-view="agenda">Por fecha</button><button class="tab" data-view="sectores">Por sector</button><button class="tab" data-view="lugares">Todos los lugares</button><button class="tab" data-view="mapa">Mapa y recorridos</button>
+</nav>
+<main>
+<section id="agendaView">
+<div class="section-head"><div><div class="eyebrow">Tu viaje</div><h2>Agenda por fecha</h2></div><div class="count">28 nov. — 8 dic.</div></div>
+<div class="day-list" id="agendaList"></div>
+</section>
+<section id="sectoresView" class="hidden">
+<div class="section-head"><div><div class="eyebrow">Explorar</div><h2>Por sector</h2></div></div>
+<div class="filters"><div class="check-dropdown" id="sectorPickDD" data-target="sectorPick"><button type="button" class="check-trigger" aria-expanded="false">Todos los sectores <span>⌄</span></button><div class="check-menu"></div></div><input type="hidden" id="sectorPick"><select id="catPick"></select><select id="sectorDate"></select></div><div class="filter-help">Puedes seleccionar varios sectores: mantén pulsado en el celular o usa la selección múltiple del navegador.</div>
+<div class="place-list" id="sectorPlaces"></div>
+</section>
+<section id="lugaresView" class="hidden">
+<div class="section-head"><div><div class="eyebrow">Inventario completo</div><h2>Todos los lugares</h2></div><div class="count" id="totalCount"></div></div>
+<div class="filters"><input id="search" placeholder="Buscar lugar, barrio o interés…"><div class="check-dropdown" id="filterSectorDD" data-target="filterSector"><button type="button" class="check-trigger" aria-expanded="false">Todos los sectores <span>⌄</span></button><div class="check-menu"></div></div><input type="hidden" id="filterSector"><select id="filterCat"></select><select id="filterOrigin"></select><select id="filterDate"></select></div><div class="filter-help">Elige uno o varios sectores. La fecha aparece en cada lugar y también puedes filtrar por día.</div>
+<div class="place-list" id="allPlaces"></div>
+</section>
+<section id="mapaView" class="hidden">
+<div class="section-head"><div><div class="eyebrow">Ubicación y navegación</div><h2>Mapa por sector</h2></div></div>
+<div class="map-wrap"><div class="map-controls"><div class="check-dropdown" id="mapSectorDD" data-target="mapSector"><button type="button" class="check-trigger" aria-expanded="false">Todos los sectores <span>⌄</span></button><div class="check-menu"></div></div><input type="hidden" id="mapSector"><select id="mapCat"></select><select id="mapDate"></select></div><div id="map" role="application" aria-label="Mapa interactivo de lugares de Buenos Aires"></div><div class="map-note">Mapa interactivo de OpenStreetMap. Selecciona un marcador para ver el lugar y abrir indicaciones en Google Maps. Requiere conexión a internet.</div></div>
+<div class="routebox"><h3>Crear recorrido en Google Maps</h3><p>Selecciona un sector y abre sus lugares geolocalizados en una ruta. Google Maps permite ajustar el orden y el medio de transporte.</p><a class="route-link" id="routeLink" target="_blank" rel="noopener">Abrir recorrido del sector ↗</a></div>
+</section>
+<div class="footer">Guía personal de viaje · Datos de recomendaciones recopiladas y lugares por verificar. Confirma horarios, precios, direcciones y funcionamiento antes de desplazarte. Los enlaces de navegación requieren internet.</div>
+</main>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" onerror="var s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js';document.head.appendChild(s)"></script>
+
+</div>
+<script>
+const days=[
+["Sáb. 28 nov.","Palermo · llegada y fútbol","Aterrizaje 6:00 a. m.; desayuno; paseo corto; check-in 3:00 p. m.; descanso 3:00–4:30 p. m.; final Palmeiras vs. Estudiantes 5:00 p. m.","Plaza Armenia, Plaza Serrano, cafés y tiendas cercanas. Confirmar bar con transmisión."],
+["Dom. 29 nov.","San Telmo","Feria dominical, Plaza Dorrego, Pasaje Defensa, Mafalda y Mercado de San Telmo.","Antigüedades, librerías, cafés históricos y Museo de Arte Moderno como adicional."],
+["Lun. 30 nov.","Palermo Soho y Hollywood","Diseño, vintage, librerías, cafés y gastronomía.","Don Julio, Chori, Mishiguene, NOLA, Perón Perón, Tegui, Cucina Paradiso y Salón Pueyrredón. Distribuir sin intentar hacerlo todo."],
+["Mar. 1 dic.","Recoleta y Retiro","Cementerio, Bellas Artes, Floralis, El Ateneo y Avenida Santa Fe.","Librerías, cafés, arquitectura, Cumaná y La Biela."],
+["Mié. 2 dic.","Palermo Chico y parques","MALBA, Jardín Japonés, Planetario, Rosedal y Bosques de Palermo.","Museo Evita opcional; cafés, jardines y actividades de bienestar."],
+["Jue. 3 dic.","Microcentro y Monserrat","Plaza de Mayo, Casa Rosada, Catedral, Cabildo, Manzana de las Luces, Tortoni, Obelisco y Corrientes.","Librería de Ávila, CP67, La Ideal, Los Galgos, Che Malbec, teatro y ronda de Plaza de Mayo."],
+["Vie. 4 dic.","Villa Crespo y Chacarita","Sarkis, Bodegón de Atlanta, Cementerio de Chacarita, cafés y tiendas.","Falena, Gould, Mandrágora, Mercado de Pulgas, La Mezzetta y Café San Bernardo. Museo de Ciencias Naturales queda en Caballito, aparte."],
+["Sáb. 5 dic.","Tigre y Delta","Tren Mitre, Puerto de Frutos, navegación, almuerzo junto al río y regreso en tren.","Comparar navegación directa con tour organizado de USD 55. Preferencia por transporte público."],
+["Dom. 6 dic.","La Boca","Caminito, Bombonera, Fundación Proa, Museo Quinquela Martín y recorrido diurno.","El Obrero, cantinas, arte urbano y fotografía."],
+["Lun. 7 dic.","Belgrano, Núñez y Costanera Norte","Barrio Chino, Museo River, Monumental y Costanera Norte.","Narda Comedor, Malasangre y ESMA como visita independiente. Día no laborable: verificar aperturas."],
+["Mar. 8 dic.","Palermo y pendientes","Cafés, librerías, compras, lugares pendientes y despedida.","Día feriado. Confirmar hora del vuelo del 9 y traslado al aeropuerto."]
+];
+const P=[
+["Palermo","Alojamiento","Base","Viaje","Punto de partida","", null,null],
+["Palermo","Plaza Armenia","Plaza","Plan de sector","Paseo, tiendas y cafés","", -34.5892,-58.4201],
+["Palermo","Plaza Serrano","Plaza","Plan de sector","Tiendas, diseño y vida de barrio","", -34.5884,-58.4292],
+["Palermo","Don Julio","Restaurante","Phil Rosenthal","Parrilla argentina","Guatemala 4699", -34.5889,-58.4208],
+["Palermo","Chori","Restaurante","Phil Rosenthal","Choripán","Thames 1653", -34.5895,-58.4248],
+["Palermo","Mishiguene","Restaurante","Phil Rosenthal","Cocina judía contemporánea","Lafinur 3368", -34.5767,-58.4094],
+["Palermo","NOLA","Restaurante","Phil Rosenthal","Cocina estilo Nueva Orleans","Gorriti 4389", -34.6017,-58.4218],
+["Palermo","Perón Perón","Restaurante","Phil Rosenthal","Cocina argentina temática","Carranza 2225", -34.5792,-58.4375],
+["Palermo","Tegui","Restaurante","Phil Rosenthal","Alta cocina","Costa Rica 5852", -34.686,-58.5],
+["Palermo Hollywood","Cucina Paradiso","Restaurante","Phil Rosenthal","Pastas italianas","Arévalo 1538", -34.5755,-58.4364],
+["Belgrano","Narda Comedor","Restaurante","Phil Rosenthal","Cocina creativa","Sucre 664", -34.562,-58.456],
+["Centro","Los Galgos","Bar / restaurante","Phil Rosenthal","Vermut y cocina tradicional","Callao 501", -34.6048,-58.3924],
+["La Boca","El Obrero","Restaurante","Phil Rosenthal","Bodegón tradicional","Caffarena 64", -34.638,-58.363],
+["San Telmo","Mercado de San Telmo","Mercado","Clau + Phil Rosenthal","Comida y puestos","Bolívar 970", -34.6205,-58.3725],
+["Villa Ortúzar","La Mezzetta","Pizzería","Phil Rosenthal","Fugazzeta","Álvarez Thomas 1321", -34.576,-58.466],
+["San Antonio de Areco","Estancia El Ombú","Excursión","Phil Rosenthal","Estancia y experiencia gaucha","", -34.25,-59.42],
+["San Telmo","Feria / Plaza Dorrego","Feria","Clau","Antigüedades y artesanías","", -34.621,-58.372],
+["San Telmo","Mafalda / Paseo de la Historieta","Punto de interés","Clau","Escultura y recorrido","", -34.6202,-58.3712],
+["San Telmo","La Poesía","Café","Investigación adicional","Café histórico","Chile 502", -34.618,-58.374],
+["San Telmo","La Libre","Librería","Investigación adicional","Libros y editoriales","Chacabuco 917", -34.618,-58.371],
+["Recoleta","El Ateneo Grand Splendid","Librería","Clau","Librería en antiguo teatro","Santa Fe 1860", -34.5955,-58.3937],
+["Recoleta","Cementerio de Recoleta","Patrimonio","Clau","Arquitectura funeraria","Junín 1760", -34.5885,-58.393],
+["Recoleta","Museo Nacional de Bellas Artes","Museo","Clau","Arte argentino e internacional","Libertador 1473", -34.5838,-58.392],
+["Recoleta","Floralis Genérica","Escultura","Clau","Escultura monumental","", -34.5833,-58.393],
+["Recoleta","Cumaná","Restaurante","Clau","Comida tradicional argentina","Rodríguez Peña 1149", -34.598,-58.393],
+["Recoleta","La Biela","Café","Investigación adicional","Café tradicional","Quintana 600", -34.587,-58.389],
+["Palermo Chico","MALBA","Museo","Clau","Arte latinoamericano","Figueroa Alcorta 3415", -34.576,-58.403],
+["Palermo Chico","Jardín Japonés","Jardín","Clau","Jardines y actividades","Casares 3450", -34.575,-58.411],
+["Palermo","Planetario Galileo Galilei","Ciencia / arquitectura","Clau","Astronomía","Sarmiento s/n", -34.568,-58.411],
+["Palermo","Rosedal / Bosques de Palermo","Parque","Clau","Jardines y paseo","", -34.572,-58.416],
+["Microcentro","Plaza de Mayo; Catedral; Cabildo","Patrimonio","Clau","Historia nacional","", -34.608,-58.371],
+["Monserrat","Manzana de las Luces","Patrimonio","Clau","Historia y arquitectura","Perú 272", -34.611,-58.374],
+["Microcentro","Café Tortoni","Café","Clau","Café histórico","Avenida de Mayo 825", -34.608,-58.38],
+["Microcentro","Che Malbec","Cata","What To Do Argentina","Degustación cotizada desde USD 40; confirmar","Avenida de Mayo 777", -34.609,-58.38],
+["Microcentro","Librería de Ávila","Librería","Investigación adicional","Librería histórica","Alsina 500", -34.609,-58.374],
+["Microcentro","CP67","Librería especializada","Investigación adicional","Arquitectura y diseño","Florida 18", -34.6,-58.374],
+["Microcentro","Confitería La Ideal","Café","Investigación adicional","Arquitectura histórica","Suipacha 384", -34.603,-58.38],
+["Villa Crespo","Sarkis","Restaurante","Clau","Cocina armenia","Thames 1101", -34.598,-58.436],
+["Villa Crespo","Bodegón de Atlanta","Restaurante","Clau","Carnes y bodegón","Humboldt 540", -34.59,-58.442],
+["Chacarita","Cementerio de Chacarita","Patrimonio","Clau","Tumba de Cerati y arquitectura","Guzmán 680", -34.585,-58.455],
+["Chacarita","Falena Libros","Librería","Investigación adicional","Librería independiente","", -34.586,-58.452],
+["Villa Crespo","Gould Libros / Mandrágora","Librerías","Investigación adicional","Música, cine y cultura","", -34.598,-58.438],
+["Colegiales","Mercado de Pulgas","Mercado","Investigación adicional","Muebles y antigüedades","Dorrego 1650", -34.579,-58.449],
+["Villa Crespo","Café San Bernardo","Café / fútbol","Clau","Café tradicional; posible partido","Corrientes 5436", -34.598,-58.436],
+["Palermo","San Paolo di Napoli / Sullivans / The Classic","Bares deportivos","Investigación adicional","Alternativas para la final; confirmar transmisión","", -34.59,-58.42],
+["Caballito","Museo Ciencias Naturales","Museo","Clau","Ciencia y dinosaurios","Ángel Gallardo 470", -34.606,-58.44],
+["Tigre","Puerto de Frutos","Mercado","Clau","Artesanías y paseo","Sarmiento 160", -34.421,-58.579],
+["Tigre","Navegación por el Delta","Experiencia","Clau","Lancha colectiva o turística","Estación Fluvial", -34.423,-58.579],
+["Tigre","Museo de Arte Tigre","Museo","Ampliación","Arte y edificio histórico","Paseo Victorica 972", -34.421,-58.57],
+["La Boca","Caminito / Bombonera","Patrimonio / fútbol","Clau","Barrio y estadio","", -34.638,-58.364],
+["La Boca","Fundación Proa / Quinquela Martín","Museos","Plan de sector","Arte contemporáneo e historia","Av. Pedro de Mendoza 1929", -34.638,-58.361],
+["Belgrano","Barrio Chino","Barrio / gastronomía","Clau","Comercio y comida asiática","Arribeños 2100", -34.557,-58.45],
+["Belgrano","Malasangre","Vermutería","Clau","Vermut y ambiente","", -34.56,-58.455],
+["Núñez","Museo River / Monumental","Museo / fútbol","Clau","Historia del club","Figueroa Alcorta 7597", -34.545,-58.449],
+["Núñez","ESMA","Museo de memoria","Clau","Memoria de la dictadura","Libertador 8151", -34.537,-58.46],
+["Núñez","Costanera Norte","Paseo","Clau","Río y espacios abiertos","", -34.55,-58.43],
+["Montevideo","Tour histórico","Excursión","What To Do Argentina","Ferry y recorrido; cotización USD 170","", null,null],
+["Colonia","Colonia medio día / Wine Experience","Excursión","What To Do Argentina","Cotizaciones USD 85 / 120","", null,null]
+];
+
+const sectorDates={
+ "Palermo":"Sáb. 28 nov. · Lun. 30 nov. · Mié. 2 dic. · Mar. 8 dic.",
+ "Palermo Hollywood":"Lun. 30 nov.",
+ "San Telmo":"Dom. 29 nov.",
+ "Recoleta":"Mar. 1 dic.",
+ "Palermo Chico":"Mié. 2 dic.",
+ "Microcentro":"Jue. 3 dic.",
+ "Monserrat":"Jue. 3 dic.",
+ "Centro":"Jue. 3 dic.",
+ "Villa Crespo":"Vie. 4 dic.",
+ "Chacarita":"Vie. 4 dic.",
+ "Colegiales":"Vie. 4 dic.",
+ "Villa Ortúzar":"Vie. 4 dic.",
+ "Tigre":"Sáb. 5 dic.",
+ "La Boca":"Dom. 6 dic.",
+ "Belgrano":"Lun. 7 dic.",
+ "Núñez":"Lun. 7 dic.",
+ "Caballito":"Por asignar",
+ "San Antonio de Areco":"Opcional",
+ "Montevideo":"Opcional",
+ "Colonia":"Opcional"
+};
+function dateFor(p){return sectorDates[p[0]]||"Por asignar"}
+const dateOptions=["Sáb. 28 nov.","Dom. 29 nov.","Lun. 30 nov.","Mar. 1 dic.","Mié. 2 dic.","Jue. 3 dic.","Vie. 4 dic.","Sáb. 5 dic.","Dom. 6 dic.","Lun. 7 dic.","Mar. 8 dic.","Opcional","Por asignar"];
+
+const sectors=[...new Set(P.map(x=>x[0]))];
+const cats=[...new Set(P.map(x=>x[2]))];
+const $=id=>document.getElementById(id);
+function mapsSearch(p){
+ const q=p[1]+(p[5]?", "+p[5]:"")+", "+p[0]+", Buenos Aires, Argentina";
+ return "https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(q);
+}
+function mapsRoute(list){
+ const valid=list.filter(p=>p[6]!=null&&p[7]!=null).slice(0,10);
+ if(!valid.length)return "https://www.google.com/maps";
+ const origin="Palermo, Buenos Aires, Argentina";
+ const last=valid[valid.length-1];
+ const destination=last[1]+(last[5]?", "+last[5]:"")+", "+last[0]+", Buenos Aires, Argentina";
+ const waypoints=valid.slice(0,-1).map(p=>p[1]+(p[5]?", "+p[5]:"")+", "+p[0]+", Buenos Aires, Argentina");
+ const params=new URLSearchParams({api:"1",origin,destination,travelmode:"walking"});
+ if(waypoints.length)params.set("waypoints",waypoints.join("|"));
+ return "https://www.google.com/maps/dir/?"+params.toString();
+}
+function card(p){return `<article class="place"><div class="place-top"><div><h3>${p[1]}</h3><p>${p[0]}${p[4]?" · "+p[4]:""}</p></div><span class="tag">${p[2]}</span></div><p>${p[5]||""}</p><div class="date-tag">Fecha: ${dateFor(p)}</div><div class="origin">${p[3]} · Pendiente de verificación cuando corresponda</div><div class="actions"><a href="${mapsSearch(p)}" target="_blank" rel="noopener">Cómo llegar ↗</a><button onclick="navigator.clipboard?.writeText('${(p[1]+" "+p[4]).replace(/'/g,"")}')">Copiar dirección</button></div></article>`}
+function fillSelect(el,values,first){
+ const node=$(el);node.innerHTML=`<option value="">${first}</option>`+values.map(v=>`<option>${v}</option>`).join("");
+}
+function setupCheckboxDropdown(id,values,placeholder){
+ const wrap=$(id+"DD"); if(!wrap)return;
+ const menu=wrap.querySelector(".check-menu"),trigger=wrap.querySelector(".check-trigger");
+ menu.innerHTML=values.map((v,i)=>`<label class="check-option"><input type="checkbox" value="${v.replace(/"/g,"&quot;")}"><span>${v}</span></label>`).join("")+
+ `<div class="check-menu-foot"><button type="button" data-clear>Limpiar</button><button type="button" data-done>Aplicar</button></div>`;
+ const update=()=>{
+   const selected=[...menu.querySelectorAll('input[type="checkbox"]:checked')].map(x=>x.value);
+   $(wrap.dataset.target).value=selected.join("|");
+   trigger.innerHTML=(selected.length?selected.length+" sectores seleccionados":placeholder)+" <span>⌄</span>";
+   wrap.dispatchEvent(new CustomEvent("selectionchange",{bubbles:true}));
+ };
+ trigger.addEventListener("click",()=>{wrap.classList.toggle("open");trigger.setAttribute("aria-expanded",wrap.classList.contains("open")?"true":"false")});
+ menu.addEventListener("change",update);
+ menu.querySelector("[data-clear]").addEventListener("click",()=>{menu.querySelectorAll("input").forEach(x=>x.checked=false);update()});
+ menu.querySelector("[data-done]").addEventListener("click",()=>{wrap.classList.remove("open");trigger.setAttribute("aria-expanded","false");update()});
+ document.addEventListener("click",e=>{if(!wrap.contains(e.target)){wrap.classList.remove("open");trigger.setAttribute("aria-expanded","false")}});
+}
+function selectedValues(el){return $(el).value?$(el).value.split("|"):[]}
+function renderAgenda(){$("agendaList").innerHTML=days.map((d,i)=>`<article class="day"><div class="day-date">FECHA<br>${d[0]}</div><div><h3>${d[1]}</h3><p>${d[2]}</p><div class="detail">${d[3]}</div><button onclick="showSector('${d[1].split(/[·,/]/)[0].trim()}')">Explorar lugares de esta jornada →</button></div></article>`).join("")}
+function showSector(name){document.querySelector('[data-view="sectores"]').click();let found=sectors.find(s=>s.toLowerCase().includes(name.toLowerCase())||name.toLowerCase().includes(s.toLowerCase()));$("sectorPickDD").querySelectorAll("input").forEach(o=>o.checked=(o.value===found));$("sectorPick").value=found||"";$("sectorPickDD").querySelector(".check-trigger").innerHTML=(found||"Todos los sectores")+" <span>⌄</span>";renderSector()}
+function renderSector(){let ss=selectedValues("sectorPick"),c=$("catPick").value,d=$("sectorDate").value;let list=P.filter(p=>(!ss.length||ss.includes(p[0]))&&(!c||p[2]===c)&&(!d||dateFor(p).includes(d)));$("sectorPlaces").innerHTML=list.length?list.map(card).join(""):'<div class="empty">No hay lugares para estos filtros.</div>'}
+function renderAll(){let q=$("search").value.toLowerCase(),ss=selectedValues("filterSector"),c=$("filterCat").value,o=$("filterOrigin").value,d=$("filterDate").value;let list=P.filter(p=>(!q||p.join(" ").toLowerCase().includes(q))&&(!ss.length||ss.includes(p[0]))&&(!c||p[2]===c)&&(!o||p[3]===o)&&(!d||dateFor(p).includes(d)));$("allPlaces").innerHTML=list.length?list.map(card).join(""):'<div class="empty">No encontramos resultados.</div>';$("totalCount").textContent=list.length+" lugares"}
+let map,markers=[];
+function initMap(){
+ if(map){setTimeout(()=>map.invalidateSize(),100);renderMap();return;}
+ if(!window.L){
+   $("map").innerHTML='<div class="empty">No se pudo cargar el mapa. Comprueba tu conexión a internet y vuelve a abrir esta sección.</div>';
+   return;
+ }
+ map=L.map("map",{scrollWheelZoom:false}).setView([-34.59,-58.42],12);
+ L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{
+   maxZoom:19,
+   attribution:'&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>'
+ }).addTo(map);
+ renderMap();
+}
+function renderMap(){
+ if(!window.L)return;
+ if(!map){initMap();return;}
+ markers.forEach(m=>map.removeLayer(m));markers=[];
+ const ss=selectedValues("mapSector"),c=$("mapCat").value,d=$("mapDate").value;
+ const list=P.filter(p=>(!ss.length||ss.includes(p[0]))&&(!c||p[2]===c)&&(!d||dateFor(p).includes(d)));
+ const located=list.filter(p=>p[6]!=null&&p[7]!=null);
+ located.forEach(p=>{
+   const marker=L.marker([p[6],p[7]]).addTo(map);
+   marker.bindPopup(`<strong>${p[1]}</strong><br>${p[0]}<br>${p[2]}<br>Fecha: ${dateFor(p)}<br><a target="_blank" rel="noopener" href="${mapsSearch(p)}">Cómo llegar con Google Maps ↗</a>`);
+   markers.push(marker);
+ });
+ if(located.length){
+   const bounds=L.latLngBounds(located.map(p=>[p[6],p[7]]));
+   map.fitBounds(bounds.pad(.15),{maxZoom:14});
+ }else{
+   map.setView([-34.59,-58.42],12);
+ }
+ const route=located.slice(0,10);
+ $("routeLink").href=mapsRoute(route);
+ $("routeLink").textContent=route.length
+   ? "Abrir recorrido en Google Maps ("+route.length+" paradas) ↗"
+   : "Abrir Google Maps ↗";
+}
+
+document.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll(".tab").forEach(x=>x.classList.toggle("active",x===b));["agenda","sectores","lugares","mapa"].forEach(v=>$(v+"View").classList.toggle("hidden",v!==b.dataset.view));if(b.dataset.view==="mapa"){setTimeout(()=>{initMap();if(map)map.invalidateSize()},120)}}));
+setupCheckboxDropdown("sectorPick",sectors,"Todos los sectores");setupCheckboxDropdown("filterSector",sectors,"Todos los sectores");setupCheckboxDropdown("mapSector",sectors,"Todos los sectores");
+fillSelect("catPick",cats,"Todas las categorías");fillSelect("filterCat",cats,"Todas las categorías");fillSelect("mapCat",cats,"Todas las categorías");
+fillSelect("filterOrigin",[...new Set(P.map(p=>p[3]))],"Todos los orígenes");
+fillSelect("sectorDate",dateOptions,"Todas las fechas");fillSelect("filterDate",dateOptions,"Todas las fechas");fillSelect("mapDate",dateOptions,"Todas las fechas");
+$("sectorPickDD").addEventListener("selectionchange",renderSector);["catPick","sectorDate"].forEach(id=>$(id).addEventListener("change",renderSector));
+$("filterSectorDD").addEventListener("selectionchange",renderAll);["search","filterCat","filterOrigin","filterDate"].forEach(id=>$(id).addEventListener(id==="search"?"input":"change",renderAll));
+$("mapSectorDD").addEventListener("selectionchange",renderMap);["mapCat","mapDate"].forEach(id=>$(id).addEventListener("change",renderMap));
+renderAgenda();renderSector();renderAll();
+</script>
+</body></html>
