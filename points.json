@@ -1,5 +1,171 @@
 {
-  "places": {},
+  "places": {
+    "base-12": {
+      "value": [
+        "La Boca",
+        "El Obrero",
+        "Restaurante",
+        "Phil Rosenthal",
+        "Bodegón tradicional",
+        "Caffarena 64",
+        -34.638,
+        -58.363,
+        "Vie. 4 dic.",
+        "base-12"
+      ],
+      "updated": 1795799356560
+    },
+    "base-14": {
+      "value": [
+        "Villa Ortúzar",
+        "La Mezzetta",
+        "Pizzería",
+        "Phil Rosenthal",
+        "Fugazzeta",
+        "Álvarez Thomas 1321",
+        -34.576,
+        -58.466,
+        "Dom. 6 dic.",
+        "base-14"
+      ],
+      "updated": 1795799356560
+    },
+    "base-37": {
+      "value": [
+        "Villa Crespo",
+        "Sarkis",
+        "Restaurante",
+        "Clau",
+        "Cocina armenia",
+        "Thames 1101",
+        -34.598,
+        -58.436,
+        "Dom. 6 dic.",
+        "base-37"
+      ],
+      "updated": 1795799356560
+    },
+    "base-38": {
+      "value": [
+        "Villa Crespo",
+        "Bodegón de Atlanta",
+        "Restaurante",
+        "Clau",
+        "Carnes y bodegón",
+        "Humboldt 540",
+        -34.59,
+        -58.442,
+        "Dom. 6 dic.",
+        "base-38"
+      ],
+      "updated": 1795799356560
+    },
+    "base-39": {
+      "value": [
+        "Chacarita",
+        "Cementerio de Chacarita",
+        "Patrimonio",
+        "Clau",
+        "Tumba de Cerati y arquitectura",
+        "Guzmán 680",
+        -34.585,
+        -58.455,
+        "Dom. 6 dic.",
+        "base-39"
+      ],
+      "updated": 1795799356560
+    },
+    "base-40": {
+      "value": [
+        "Chacarita",
+        "Falena Libros",
+        "Librería",
+        "Investigación adicional",
+        "Librería independiente",
+        "",
+        -34.586,
+        -58.452,
+        "Dom. 6 dic.",
+        "base-40"
+      ],
+      "updated": 1795799356560
+    },
+    "base-41": {
+      "value": [
+        "Villa Crespo",
+        "Gould Libros / Mandrágora",
+        "Librerías",
+        "Investigación adicional",
+        "Música, cine y cultura",
+        "",
+        -34.598,
+        -58.438,
+        "Dom. 6 dic.",
+        "base-41"
+      ],
+      "updated": 1795799356560
+    },
+    "base-42": {
+      "value": [
+        "Colegiales",
+        "Mercado de Pulgas",
+        "Mercado",
+        "Investigación adicional",
+        "Muebles y antigüedades",
+        "Dorrego 1650",
+        -34.579,
+        -58.449,
+        "Dom. 6 dic.",
+        "base-42"
+      ],
+      "updated": 1795799356560
+    },
+    "base-43": {
+      "value": [
+        "Villa Crespo",
+        "Café San Bernardo",
+        "Café / fútbol",
+        "Clau",
+        "Café tradicional; posible partido",
+        "Corrientes 5436",
+        -34.598,
+        -58.436,
+        "Dom. 6 dic.",
+        "base-43"
+      ],
+      "updated": 1795799356560
+    },
+    "base-49": {
+      "value": [
+        "La Boca",
+        "Caminito / Bombonera",
+        "Patrimonio / fútbol",
+        "Clau",
+        "Barrio y estadio",
+        "",
+        -34.638,
+        -58.364,
+        "Vie. 4 dic.",
+        "base-49"
+      ],
+      "updated": 1795799356560
+    },
+    "base-50": {
+      "value": [
+        "La Boca",
+        "Fundación Proa / Quinquela Martín",
+        "Museos",
+        "Plan de sector",
+        "Arte contemporáneo e historia",
+        "Av. Pedro de Mendoza 1929",
+        -34.638,
+        -58.361,
+        "Vie. 4 dic.",
+        "base-50"
+      ],
+      "updated": 1795799356560
+    }
+  },
   "days": {
     "5": {
       "value": [
@@ -9,6 +175,24 @@
         "Librería de Ávila, CP67, La Ideal, Los Galgos, Che Malbec, teatro y ronda de Plaza de Mayo. Tango · Para el presupuesto total de COP 3 millones, priorizar solo espectáculo y comer antes en un restaurante de precio moderado. Opciones: Tango Porteño (Centro, cerca del Obelisco): ARS 60.000, solo espectáculo, tarifa promocional publicada según la referencia compartida; producción teatral grande en un antiguo cine art déco. Piazzolla Tango (Microcentro, Galería Güemes): desde ARS 53.302, solo espectáculo, sin traslados ni cena; destaca la arquitectura de la sala. Salón Marabú (Microcentro, Maipú 365): alternativa de milonga tradicional, con ambiente social y baile; programación y precio según la noche. Para el jueves 3, elegir entre Piazzolla Tango y Tango Porteño. Reservar aproximadamente COP 150.000–200.000 para la entrada y algo más para el regreso a Palermo: valores de planificación, no una conversión cambiaria verificada. El 3 de diciembre encaja con las programaciones habituales según la referencia compartida, pero la disponibilidad específica de esa noche sigue pendiente de confirmación. Consultar tarifas, entradas y disponibilidad antes de reservar."
       ],
       "updated": 1795737456761
+    },
+    "6": {
+      "value": [
+        "Vie. 4 dic.",
+        "La Boca",
+        "Caminito, Bombonera, Fundación Proa, Museo Quinquela Martín y recorrido diurno.",
+        "El Obrero, cantinas, arte urbano y fotografía."
+      ],
+      "updated": 1795799356560
+    },
+    "8": {
+      "value": [
+        "Dom. 6 dic.",
+        "Villa Crespo y Chacarita",
+        "Sarkis, Bodegón de Atlanta, Cementerio de Chacarita, cafés y tiendas.",
+        "Falena, Gould, Mandrágora, Mercado de Pulgas, La Mezzetta y Café San Bernardo. Museo de Ciencias Naturales queda en Caballito, aparte."
+      ],
+      "updated": 1795799356560
     }
   },
   "checklist": {
