@@ -15,6 +15,30 @@
     "check-1-5": {
       "deleted": true,
       "updated": 1795727588743
+    },
+    "item-f472af48-d246-46aa-aab2-4635933c99e3": {
+      "value": {
+        "text": "Medicamentos del día",
+        "group": "Prioridad · Medicamentos",
+        "checked": false
+      },
+      "updated": 1795749351506
+    },
+    "item-465228a9-08b1-47d9-8284-22ce90c47ba8": {
+      "value": {
+        "text": "Medicamentos para el sueño",
+        "group": "Prioridad · Medicamentos",
+        "checked": false
+      },
+      "updated": 1795749351506
+    },
+    "item-fbd0b320-c25a-4055-bb64-1d6bd26945aa": {
+      "value": {
+        "text": "PEG",
+        "group": "Prioridad · Medicamentos",
+        "checked": false
+      },
+      "updated": 1795749351506
     }
   }
 }

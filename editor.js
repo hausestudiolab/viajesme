@@ -96,7 +96,7 @@ function checklistItems(){
 function renderChecklist(){
  const list=checklistItems(),done=list.filter(item=>item.checked).length,container=$('checklistGroups');
  const openGroups=new Map([...container.querySelectorAll('details')].map(node=>[node.dataset.group,node.open]));
- const groups=[...new Set([...checklistDefaults.map(g=>g.name),...list.map(item=>item.group)])];
+ const groups=[...new Set([...checklistDefaults.map(g=>g.name),...list.map(item=>item.group)])].sort((a,b)=>Number(b.startsWith('Prioridad'))-Number(a.startsWith('Prioridad')));
  $('packingCount').textContent=done+'/'+list.length;$('packingProgress').max=Math.max(1,list.length);$('packingProgress').value=done;
  container.innerHTML=groups.map((group,i)=>{const items=list.filter(item=>item.group===group),checked=items.filter(item=>item.checked).length;return `<details class="packing-group" data-group="${escapeHtml(group)}" ${openGroups.get(group)!==false?'open':''}><summary><h3>${i+1}. ${escapeHtml(group)}</h3><span>${checked}/${items.length}</span></summary>${items.map(item=>`<div class="packing-row"><label class="packing-label"><input type="checkbox" data-check-item="${item.id}" ${item.checked?'checked':''}><span>${escapeHtml(item.text)}</span></label><button type="button" data-edit-check="${item.id}" aria-label="Editar ${escapeHtml(item.text)}">Editar</button><button type="button" data-remove-check="${item.id}" aria-label="Quitar ${escapeHtml(item.text)}">Quitar</button></div>`).join('')}<button type="button" class="packing-add" data-add-check="${escapeHtml(group)}">＋ Agregar elemento</button></details>`;}).join('');
  $('checklistCategories').replaceChildren(...groups.map(group=>new Option(group,group)));
