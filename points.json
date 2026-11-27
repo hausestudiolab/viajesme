@@ -164,6 +164,66 @@
         "base-50"
       ],
       "updated": 1795799356560
+    },
+    "new-18c880f6-5e66-4acb-adfd-14446952ee70": {
+      "value": [
+        "Palermo",
+        "Farmacia Higia",
+        "Farmacia",
+        "Servicios cerca del alojamiento",
+        "En la misma cuadra del alojamiento. Confirmar horario y disponibilidad. Ubicación por dirección: USIG, Buenos Aires.",
+        "Costa Rica 4187",
+        -34.591544,
+        -58.421901,
+        "Por asignar",
+        "new-18c880f6-5e66-4acb-adfd-14446952ee70"
+      ],
+      "updated": 1795807254280
+    },
+    "new-2cc9aa9d-9e24-413d-b444-6fe5d945743a": {
+      "value": [
+        "Palermo",
+        "Farmacia Costa Rica",
+        "Farmacia",
+        "Servicios cerca del alojamiento",
+        "Farmacia sobre Costa Rica. Confirmar horario y disponibilidad. Ubicación por dirección: USIG, Buenos Aires.",
+        "Costa Rica 4799",
+        -34.58748,
+        -58.427951,
+        "Por asignar",
+        "new-2cc9aa9d-9e24-413d-b444-6fe5d945743a"
+      ],
+      "updated": 1795807254280
+    },
+    "new-fef32f2f-8e8f-44f6-a368-d4c151c5698c": {
+      "value": [
+        "Palermo",
+        "Coto · Scalabrini Ortiz",
+        "Supermercado",
+        "Servicios cerca del alojamiento",
+        "Sucursal 24. Compras de alimentos y productos básicos. Confirmar horario. Ubicación por dirección: USIG, Buenos Aires.",
+        "Av. Raúl Scalabrini Ortiz 1688",
+        -34.590312,
+        -58.424229,
+        "Por asignar",
+        "new-fef32f2f-8e8f-44f6-a368-d4c151c5698c"
+      ],
+      "updated": 1795807254280
+    },
+    "new-44d565f0-d46a-4bca-b567-ae500ec2c068": {
+      "value": [
+        "Palermo",
+        "DIA · Scalabrini Ortiz",
+        "Supermercado",
+        "Servicios cerca del alojamiento",
+        "Tienda de proximidad con marcas propias. Opción de formato similar a D1. Confirmar horario. Ubicación por dirección: USIG, Buenos Aires.",
+        "Av. Raúl Scalabrini Ortiz 1647",
+        -34.590602,
+        -58.424328,
+        "Por asignar",
+        "new-44d565f0-d46a-4bca-b567-ae500ec2c068"
+      ],
+      "updated": 1795807254280
     }
   },
   "days": {
