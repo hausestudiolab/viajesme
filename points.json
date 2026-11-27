@@ -39,6 +39,30 @@
         "checked": false
       },
       "updated": 1795749351506
+    },
+    "item-6e7b32a1-0f3b-4ccd-93ee-8212c8b1a770": {
+      "value": {
+        "text": "Marcadores",
+        "group": "Para los recorridos",
+        "checked": false
+      },
+      "updated": 1795749447971
+    },
+    "item-6e7faf37-b366-47c2-9768-51e207c0be63": {
+      "value": {
+        "text": "Libreta",
+        "group": "Para los recorridos",
+        "checked": false
+      },
+      "updated": 1795749447971
+    },
+    "item-3136a125-8d68-432b-852d-1ab4e51b53bf": {
+      "value": {
+        "text": "iPad",
+        "group": "Tecnología",
+        "checked": false
+      },
+      "updated": 1795749447971
     }
   }
 }
