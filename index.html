@@ -42,7 +42,7 @@ button,input,select{font:inherit}button{cursor:pointer}.shell{max-width:1020px;m
 <div class="meta"><span>⌖ Costa Rica 4150 · Palermo</span><span>11 jornadas</span><span>Consulta desde el celular</span></div>
 </section>
 <nav class="nav">
-<button class="tab active" data-view="agenda">Por fecha</button><button class="tab" data-view="sectores">Sector</button><button class="tab" data-view="lugares">Lugares</button><button class="tab" data-view="mapa">Mapa</button><button class="tab" data-view="checklist">Checklist</button>
+<button class="tab active" data-view="agenda">Fecha</button><button class="tab" data-view="sectores">Sector</button><button class="tab" data-view="lugares">Lugares</button><button class="tab" data-view="mapa">Mapa</button><button class="tab" data-view="checklist">Checklist</button>
 </nav>
 <main>
 <div class="edit-toolbar"><button id="addPoint" type="button">＋ Agregar punto</button><button id="syncPoints" type="button">Sincronizar con GitHub</button></div>
@@ -59,17 +59,17 @@ button,input,select{font:inherit}button{cursor:pointer}.shell{max-width:1020px;m
 <div class="day-list" id="agendaList"></div>
 </section>
 <section id="sectoresView" class="hidden">
-<div class="section-head"><div><div class="eyebrow">Explorar</div><h2>Por sector</h2></div></div>
+<div class="section-head"><div><div class="eyebrow">Explorar</div><h2>Sector</h2></div></div>
 <div class="filters"><div class="check-dropdown" id="sectorPickDD" data-target="sectorPick"><button type="button" class="check-trigger" aria-expanded="false">Todos los sectores <span>⌄</span></button><div class="check-menu"></div></div><input type="hidden" id="sectorPick"><select id="catPick"></select><select id="sectorDate"></select></div><div class="filter-help">Marca uno o varios sectores y pulsa Aplicar.</div>
 <div class="place-list" id="sectorPlaces"></div>
 </section>
 <section id="lugaresView" class="hidden">
-<div class="section-head"><div><div class="eyebrow">Inventario completo</div><h2>Todos los lugares</h2></div><div class="count" id="totalCount"></div></div>
+<div class="section-head"><div><div class="eyebrow">Inventario completo</div><h2>Lugares</h2></div><div class="count" id="totalCount"></div></div>
 <div class="filters"><input id="search" placeholder="Buscar lugar, barrio o interés…"><div class="check-dropdown" id="filterSectorDD" data-target="filterSector"><button type="button" class="check-trigger" aria-expanded="false">Todos los sectores <span>⌄</span></button><div class="check-menu"></div></div><input type="hidden" id="filterSector"><select id="filterCat"></select><select id="filterOrigin"></select><select id="filterDate"></select></div><div class="filter-help">Elige uno o varios sectores. La fecha aparece en cada lugar y también puedes filtrar por día.</div>
 <div class="place-list" id="allPlaces"></div>
 </section>
 <section id="mapaView" class="hidden">
-<div class="section-head"><div><div class="eyebrow">Ubicación y navegación</div><h2>Mapa por sector</h2></div></div>
+<div class="section-head"><div><div class="eyebrow">Ubicación y navegación</div><h2>Mapa</h2></div></div>
 <div class="map-wrap"><div class="map-controls"><div class="check-dropdown" id="mapSectorDD" data-target="mapSector"><button type="button" class="check-trigger" aria-expanded="false">Todos los sectores <span>⌄</span></button><div class="check-menu"></div></div><input type="hidden" id="mapSector"><select id="mapCat"></select><select id="mapDate"></select></div><div id="map" role="application" aria-label="Mapa interactivo de lugares de Buenos Aires"></div><div class="map-note">Mapa interactivo de OpenStreetMap. Selecciona un marcador para ver el lugar y abrir indicaciones en Google Maps. Requiere conexión a internet.</div></div>
 <div class="routebox"><h3>Crear recorrido en Google Maps</h3><p>Selecciona un sector y abre sus lugares geolocalizados en una ruta. Google Maps permite ajustar el orden y el medio de transporte.</p><a class="route-link" id="routeLink" target="_blank" rel="noopener">Abrir recorrido del sector ↗</a></div>
 </section>
