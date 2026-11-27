@@ -81,12 +81,8 @@
       "updated": 1795752229831
     },
     "item-033fe329-c1f8-400a-828e-0e0155f99ff9": {
-      "value": {
-        "text": "Hair care",
-        "group": "Aseo y cuidado personal",
-        "checked": false
-      },
-      "updated": 1795752229831
+      "deleted": true,
+      "updated": 1795752366267
     },
     "item-2ec9a044-4de4-4d7a-bb3b-2e5f0ee0dfed": {
       "value": {
@@ -103,6 +99,14 @@
         "checked": false
       },
       "updated": 1795752276906
+    },
+    "item-9dd04612-001b-4762-a2a2-0d5b15b6cd51": {
+      "value": {
+        "text": "Lima de uñas",
+        "group": "Aseo y cuidado personal",
+        "checked": false
+      },
+      "updated": 1795752366267
     }
   }
 }
