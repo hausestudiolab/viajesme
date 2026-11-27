@@ -115,6 +115,22 @@
         "checked": false
       },
       "updated": 1795753099906
+    },
+    "check-2-7": {
+      "value": {
+        "text": "Chaqueta de jean grafiteada de Daniel",
+        "group": "Ropa",
+        "checked": false
+      },
+      "updated": 1795753475816
+    },
+    "item-5b2344fa-8307-4fae-9830-905c9abdf81d": {
+      "value": {
+        "text": "Camisas de lino",
+        "group": "Ropa",
+        "checked": false
+      },
+      "updated": 1795753475816
     }
   }
 }
