@@ -87,6 +87,22 @@
         "checked": false
       },
       "updated": 1795752229831
+    },
+    "item-2ec9a044-4de4-4d7a-bb3b-2e5f0ee0dfed": {
+      "value": {
+        "text": "Pinzas de pelo",
+        "group": "Aseo y cuidado personal",
+        "checked": false
+      },
+      "updated": 1795752276906
+    },
+    "item-14450000-20d0-4613-90d5-408931aac3a5": {
+      "value": {
+        "text": "Moñas",
+        "group": "Aseo y cuidado personal",
+        "checked": false
+      },
+      "updated": 1795752276906
     }
   }
 }
